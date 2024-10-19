@@ -14,4 +14,4 @@ package-install:
 	python3 -m pip install dist/*.whl
 
 test-coverage:
-	poetry run pytest --cov
+	poetry run pytest --cov --cov-report xml:coverage.xml
