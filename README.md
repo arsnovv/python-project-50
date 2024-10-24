@@ -8,4 +8,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/84f927c4455b8b9656a7/maintainability)](https://codeclimate.com/github/arsnovv/python-project-50/maintainability)
 
 ### Asciinema 1:
-[![asciicast](https://asciinema.org/a/VU6mElUIDGyjqZdj874UObCvN.svg)](https://asciinema.org/a/VU6mElUIDGyjqZdj874UObCvN)
+[![asciicast](https://asciinema.org/a/VU6mElUIDGyjqZdj874UObCvN.svg)](https://asciinema.org/a/VU6mElUIDGyjqZdj874UObCvN
+
+### Package work:
+[![asciicast](https://asciinema.org/a/8ymbWirnsVcby3dqHZTyoLA6Q.svg)](https://asciinema.org/a/8ymbWirnsVcby3dqHZTyoLA6Q)
