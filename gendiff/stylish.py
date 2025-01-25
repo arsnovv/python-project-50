@@ -4,7 +4,6 @@ def stylish(diff, level=0):
 
     grouped_diff = {}
 
-    # Собираем изменения по ключам
     for item in diff:
         key = item['key']
         status = item['status']
@@ -12,7 +11,6 @@ def stylish(diff, level=0):
         if key not in grouped_diff:
             grouped_diff[key] = {'added': [], 'removed': [], 'unchanged': []}
 
-        # Обрабатываем изменения по статусу
         if status == 'modified':
             grouped_diff[key]['removed'].append(f" - {key}: {format_value(item['old_value'], level)}")
             grouped_diff[key]['added'].append(f" + {key}: {format_value(item['new_value'], level)}")
@@ -23,7 +21,6 @@ def stylish(diff, level=0):
         elif status == 'added':
             grouped_diff[key]['added'].append(f" + {key}: {format_value(item['value'], level)}")
 
-    # Обрабатываем изменения для каждого ключа
     for key, changes in grouped_diff.items():
         if changes['removed'] or changes['added']:
             result.append(f"{indent}{key}: {{")
@@ -53,5 +50,3 @@ def format_value(value, level):
     elif isinstance(value, bool):
         return str(value).lower()
     return str(value)
-
-
