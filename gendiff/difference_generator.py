@@ -1,30 +1,48 @@
-def generate_diff(dict1, dict2):
+from gendiff.stylish import stylish
+
+
+def generate_diff(dict1, dict2, format_name='stylish'):
+    def compare_values(value1, value2):
+        if isinstance(value1, dict) and isinstance(value2, dict):
+            return generate_diff(value1, value2, format_name)
+        return value1 != value2
+
     all_keys = set(dict1.keys()).union(set(dict2.keys()))
     sorted_keys = sorted(all_keys)
 
-    output = ["{"]
+    diff = []
 
     for key in sorted_keys:
         key1 = key in dict1
         key2 = key in dict2
 
         if key1 and key2:
-            if dict1[key] == dict2[key]:
-                output.append(f"    {key}: {format_value(dict1[key])}")
+            if compare_values(dict1[key], dict2[key]):
+                diff.append({
+                    "key": key,
+                    "status": "modified",
+                    "old_value": dict1[key],
+                    "new_value": dict2[key]
+                })
             else:
-                output.append(f"  - {key}: {format_value(dict1[key])}")
-                output.append(f"  + {key}: {format_value(dict2[key])}")
+                diff.append({
+                    "key": key,
+                    "status": "unchanged",
+                    "value": dict1[key]
+                })
         elif key1:
-            output.append(f"  - {key}: {format_value(dict1[key])}")
+            diff.append({
+                "key": key,
+                "status": "removed",
+                "value": dict1[key]
+            })
         elif key2:
-            output.append(f"  + {key}: {format_value(dict2[key])}")
+            diff.append({
+                "key": key,
+                "status": "added",
+                "value": dict2[key]
+            })
 
-    output.append("}")
-
-    return "\n".join(output)
-
-
-def format_value(value):
-    if isinstance(value, bool):
-        return str(value).lower()
-    return value
+    if format_name == 'stylish':
+        return stylish(diff)
+    return diff

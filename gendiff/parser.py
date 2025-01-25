@@ -34,14 +34,19 @@ def parse_args():
         with open(args.second_file, 'r') as file2:
             data2 = json.load(file2)
 
-    elif (args.first_file.endswith('.yml') or args.first_file.endswith('.yaml')
-          and args.second_file.endswith('.yml')
-          or args.second_file.endswith('.ymal')):
+    elif (args.first_file.endswith('.yml') or args.first_file.endswith('.yaml')) and \
+         (args.second_file.endswith('.yml') or args.second_file.endswith('.yaml')):
         with open(args.first_file, 'r') as file1:
             data1 = yaml.safe_load(file1)
 
         with open(args.second_file, 'r') as file2:
             data2 = yaml.safe_load(file2)
 
-    diff = generate_diff(data1, data2)
+    else:
+        raise ValueError("Both files should be in JSON or YAML format.")
+
+    format_name = args.format if args.format else 'stylish'
+
+    diff = generate_diff(data1, data2, format_name=format_name)
     return diff
+
